@@ -1,7 +1,7 @@
 class Solution {
     public void helper(int[] arr, int idx, List<Integer> out, List<List<Integer>> ans){
         if(idx==arr.length){
-            ans.add(new ArrayList<>(out));
+            ans.add(out);
             return;
         }
         List<Integer> list1 = new ArrayList<>(out);
