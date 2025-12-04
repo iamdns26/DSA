@@ -6,8 +6,7 @@ class Solution {
             else count--;
             if(count < 0) return false;
         }
-        if(count==0)return true;
-        return false; 
+       return count==0 ;
     }
     public void helper(String otp, List<String> ans, int level, int n){
         if(level == 2*n){
