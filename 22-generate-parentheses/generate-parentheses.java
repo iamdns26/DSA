@@ -1,26 +1,15 @@
 class Solution {
-    public boolean check(String s){
-        int count = 0;
-        for(int i = 0 ; i < s.length() ; i++){
-            if(s.charAt(i) == '(') count++;
-            else count--;
-            if(count < 0) return false;
-        }
-       return count==0 ;
-    }
-    public void helper(String otp, List<String> ans, int count, int n){
-        if(count == 2*n){
-            if(check(otp)){
-                ans.add(otp);
-            }
+    public void helper(String otp, List<String> ans, int left, int right, int n){
+        if(otp.length() == 2*n){
+            ans.add(otp);
             return;
         }
-        helper( otp + '(' , ans , count+1 , n);
-        helper( otp + ')' , ans , count+1 , n);
+        if(left < n) helper( otp + '(' , ans , left+1, right , n);
+        if(right < left) helper( otp + ')' , ans , left, right+1 , n);
     }
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
-        helper("" , ans , 0 , n);
+        helper("" , ans , 0 , 0 , n);
         return ans;
     }
 }
