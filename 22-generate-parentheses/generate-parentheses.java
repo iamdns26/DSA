@@ -8,15 +8,15 @@ class Solution {
         }
        return count==0 ;
     }
-    public void helper(String otp, List<String> ans, int level, int n){
-        if(level == 2*n){
+    public void helper(String otp, List<String> ans, int count, int n){
+        if(count == 2*n){
             if(check(otp)){
                 ans.add(otp);
             }
             return;
         }
-        helper( otp + '(' , ans , level+1 , n);
-        helper( otp + ')' , ans , level+1 , n);
+        helper( otp + '(' , ans , count+1 , n);
+        helper( otp + ')' , ans , count+1 , n);
     }
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
