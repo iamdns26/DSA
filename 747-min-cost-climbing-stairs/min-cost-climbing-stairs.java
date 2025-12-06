@@ -1,7 +1,6 @@
 class Solution {
       int helper(int[] arr, int idx,int[] dp){
-        if(idx == arr.length-1 ) return arr[idx];
-        if(idx == arr.length-2 ) return arr[idx];
+        if (idx >= arr.length) return 0;
         if(dp[idx] != -1) return dp[idx];
         int cost = arr[idx];
         int v1 = helper(arr,idx+1,dp);
