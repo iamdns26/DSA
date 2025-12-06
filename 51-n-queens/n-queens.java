@@ -1,72 +1,88 @@
 class Solution {
-    public static boolean isSafe(char[][] board, int row, int col){
+    private  boolean isSafe(char[][] board, int row, int col) {
         int n = board.length;
-        // // check row --> East & West
-        // for (int j = 0; j < n; j++) {
-        //     if(board[row][j]=='Q') return false;
-        // }
-        // check col --> North & South
-        for (int i = 0; i < n; i++) {
-            if(board[i][col]=='Q') return false;
+
+        //check row -- east and west
+        for(int j = 0; j<n;j++){
+            if(board[row][j] == 'Q') return false;
         }
-        // check North-East
-        int i = row , j = col ;
-        while(i>=0 && j<n){
-            if(board[i][j]=='Q') return false;
-            i-- ; j++;
+
+        //check col-- north south
+        for(int i = 0; i<n;i++){
+            if(board[i][col] == 'Q') return false;
         }
-        // check South-East
-        i = row ; j = col ;
-        while(i<n && j<n){
-            if(board[i][j]=='Q') return false;
-            i++ ; j++;
+
+        // check nort east
+        int i = row;
+        int j = col;
+        while(i>= 0 && j<n){
+            if(board[i][j] == 'Q') return false;
+            i--;
+            j++;
         }
-        // check South-West
-        i = row ; j = col ;
-        while(i<n && j>=0){
-            if(board[i][j]=='Q') return false;
-            i++ ; j--;
+
+        // check south east
+         i = row;
+         j = col;
+        while(i<n && j <n){
+            if(board[i][j] == 'Q') return false;
+            i++;
+            j++;
         }
-        // check North-West
-        i = row ; j = col ;
-        while(i>=0 && j>=0){
-            if(board[i][j]=='Q') return false;
-            i-- ; j--;
+
+        // check south west
+         i = row;
+         j = col;
+        while(i<n && j >=0){
+            if(board[i][j] == 'Q') return false;
+            i++;
+            j--;
+        }
+
+        // check north west
+         i = row;
+         j = col;
+        while(i >= 0 && j >=0){
+            if(board[i][j] == 'Q') return false;
+            i--;
+            j--;
         }
         return true;
     }
-    public static void nQueen(char[][] board, int row, List<List<String>> ans){
+
+    private  void nqueen(char[][] board, int row,List<List<String>> ans) {
         int n = board.length;
-        if(row==n){
-            // copy the 2D char Array into String list
+        if(row == n){ // base case
+            //copy 2D char array into list of string
             List<String> l = new ArrayList<>();
-            for(int i=0 ; i<n ; i++){
-                String s = "";
-                for(int j=0 ; j<n ; j++){
-                    s+=board[i][j];
+            for(int i = 0; i<n;i++){
+                String str = "";
+                for(int j = 0; j < n; j++){
+                    str += board[i][j];
                 }
-                l.add(s);
+                l.add(str);
             }
             ans.add(l);
             return;
         }
-        for (int j = 0; j < n; j++) {
-            if(isSafe(board,row,j)){
-                board[row][j] = 'Q';
-                nQueen(board,row+1,ans);
-                board[row][j] = '.'; // backtracking
+        for(int j = 0; j<n;j++){ // work and call
+           if(isSafe(board,row,j)){
+             board[row][j] = 'Q';
+             nqueen(board,row+1,ans); // recursion
+             board[row][j] = '.'; // backtracking
             }
         }
     }
+
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> ans = new ArrayList<>();
         char[][] board = new char[n][n];
-        for(int i=0 ; i<n ; i++){
-            for(int j=0 ; j<n ; j++){
+        for(int i = 0; i<n;i++){
+            for(int j = 0; j <n;j++){
                 board[i][j] = '.';
             }
         }
-        nQueen(board,0,ans);
+        List<List<String>> ans = new ArrayList<>();
+        nqueen(board,0,ans); // 0 --> row no
         return ans;
     }
 }
