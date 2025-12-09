@@ -10,7 +10,7 @@ class Solution {
         return dp[i][j] = up + left;
     }
     public int uniquePaths(int m, int n) {
-        int[][]dp = new int[m][n];
+        int[][]dp = new int[m+1][n+1];
          for(int[] d : dp) Arrays.fill(d,-1);
         return helper(m-1 , n-1 , dp);
     }
