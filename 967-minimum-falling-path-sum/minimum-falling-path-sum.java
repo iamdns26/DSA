@@ -21,9 +21,9 @@ class Solution {
     public int minFallingPathSum(int[][] mat) {
         int n = mat.length;
         int[][] dp = new int[n][n];
+        for(int[] d : dp) Arrays.fill(d,Integer.MIN_VALUE);
         int ans = Integer.MAX_VALUE;
        for(int i = 0 ; i < n ; i++){
-           for(int[] d : dp) Arrays.fill(d,Integer.MIN_VALUE);
            ans = Math.min(ans,helper(mat,0,i,dp));
        }
         return ans;
