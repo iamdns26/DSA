@@ -9,8 +9,7 @@ class Solution {
         int left = dfs(triangle, row + 1, col, dp);
         int right = dfs(triangle, row + 1, col + 1, dp);
     
-        dp[row][col] = triangle.get(row).get(col) + Math.min(left, right);
-        return dp[row][col];
+        return dp[row][col] = triangle.get(row).get(col) + Math.min(left, right);
     }
     public int minimumTotal(List<List<Integer>> triangle) {
         int n = triangle.size();
