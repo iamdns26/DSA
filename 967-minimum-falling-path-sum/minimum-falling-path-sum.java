@@ -6,16 +6,16 @@ class Solution {
         int a = Integer.MAX_VALUE;
         int b = Integer.MAX_VALUE;
         int c = Integer.MAX_VALUE;
+        // left call
         if(col > 0){
             a = helper(mat,row+1,col-1,dp);
         }
-
+        // middle call
         b = helper(mat,row+1,col,dp);
-
+        // right call
         if(col < mat.length-1){
             c = helper(mat,row+1,col+1,dp);
         }    
-        
         return dp[row][col] = mat[row][col] + Math.min(a,Math.min(b,c));
     }
     public int minFallingPathSum(int[][] mat) {
@@ -23,9 +23,9 @@ class Solution {
         int[][] dp = new int[n][n];
         for(int[] d : dp) Arrays.fill(d,Integer.MIN_VALUE);
         int ans = Integer.MAX_VALUE;
-       for(int i = 0 ; i < n ; i++){
+        for(int i = 0 ; i < n ; i++){
            ans = Math.min(ans,helper(mat,0,i,dp));
-       }
+        }
         return ans;
     }
 }
