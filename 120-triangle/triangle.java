@@ -1,9 +1,8 @@
 class Solution {
-    private int dfs(List<List<Integer>> triangle, int row, int col, int[][] dp){
+    public int dfs(List<List<Integer>> triangle, int row, int col, int[][] dp){
         if(row == triangle.size() - 1){
             return triangle.get(row).get(col);
         }
-        
         if(dp[row][col] != Integer.MIN_VALUE){
             return dp[row][col];
         }
