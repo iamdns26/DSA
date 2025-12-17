@@ -24,7 +24,7 @@ class Solution {
         for(int ele : nums) sum+=ele;
         int maxSub = maxSubArray(nums);
         int minSub = minSubArray(nums);
-        if(maxSub < 0) return maxSubArray(nums);
+        if(maxSub <= 0) return maxSubArray(nums);
         return Math.max(maxSub, sum-minSub);
     }
 }
