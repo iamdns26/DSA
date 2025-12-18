@@ -1,5 +1,5 @@
 public class Solution {
-    private int dfs(int num, Map<Integer, Integer> sums, Map<Integer, Integer> memo) {
+    public int dfs(int num, Map<Integer, Integer> sums, Map<Integer, Integer> memo) {
         if (num <= 0) return 0;
         if (memo.containsKey(num)) {
             return memo.get(num);
