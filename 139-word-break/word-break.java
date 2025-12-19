@@ -1,14 +1,10 @@
 class Solution {
     public boolean dfs(int idx, String s, Set<String> set, Boolean[] dp) {
         if (idx == s.length()) return true;
-
         if (dp[idx] != null) return dp[idx];
 
-        for (int end = idx + 1; end <= s.length(); end++) {
-            if (set.contains(s.substring(idx, end)) &&
-                dfs(end, s, set, dp)) {
-                return dp[idx] = true;
-            }
+        for (int i = idx + 1; i <= s.length(); i++) {
+            if (set.contains(s.substring(idx, i)) && dfs(i, s, set, dp)) return dp[idx] = true;
         }
         return dp[idx] = false;
     }
