@@ -2,14 +2,14 @@ class Solution {
     public int helper(int row, int col, int[][] arr, int[][] dp){
         int m = arr.length , n = arr[0].length;
         if(row >= m || col >= n) return Integer.MAX_VALUE;
-
         if(row==m-1 && col == n-1){
             if(arr[row][col] < 0){
-               return 1 + Math.abs(arr[row][col]);
+               return 1 - arr[row][col];
             }
             else return 1;
         }
         if(dp[row][col] != -1) return dp[row][col];
+
         int down = helper(row+1,col,arr,dp);
         int right = helper(row,col+1,arr,dp);
 
