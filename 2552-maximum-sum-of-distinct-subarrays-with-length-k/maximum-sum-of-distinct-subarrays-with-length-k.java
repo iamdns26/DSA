@@ -9,7 +9,9 @@ class Solution {
             sum += arr[j];
             map.put(arr[j], map.getOrDefault(arr[j], 0) + 1);
 
-            if (j - i + 1 == k) {
+            if(j - i + 1 < k) j++;
+
+            else if (j - i + 1 == k) {
                 if (map.size() == k) {
                     mxSum = Math.max(mxSum, sum);
                 }
@@ -20,8 +22,8 @@ class Solution {
                 }
                 sum -= arr[i];
                 i++;
+                j++;
             }
-            j++; // ALWAYS move j
         }
         return mxSum;
     }
