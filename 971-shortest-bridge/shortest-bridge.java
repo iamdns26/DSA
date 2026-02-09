@@ -1,5 +1,4 @@
 class Solution {
-
     public void dfs(int i, int j, Queue<int[]> q, int[][] grid, boolean[][] vis){
         int n = grid.length ; 
         int m = grid[0].length;
@@ -9,8 +8,7 @@ class Solution {
 
         q.add(new int[]{i,j});
         vis[i][j] = true;
-        grid[i][j] = 2;
-
+    
         dfs(i+1,j,q,grid,vis);
         dfs(i-1,j,q,grid,vis);
         dfs(i,j+1,q,grid,vis);
@@ -20,13 +18,11 @@ class Solution {
     public int bfs(Queue<int[]> q, int[][] grid, boolean[][] vis){
         int n = grid.length ; 
         int m = grid[0].length;
-
         int count = 0;
         int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
 
         while(q.size() > 0){
             int size = q.size(); 
-
             while(size-- > 0){
                 int[] p = q.remove();
                 int r = p[0] , c = p[1];
@@ -46,7 +42,6 @@ class Solution {
     }
 
     public int shortestBridge(int[][] grid) {
-
         int n = grid.length ; 
         int m = grid[0].length;
         int sRow = -1 , sCol = -1;
