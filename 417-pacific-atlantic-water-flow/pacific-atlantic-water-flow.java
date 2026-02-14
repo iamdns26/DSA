@@ -16,26 +16,28 @@ class Solution {
         int m = heights.length;
         int n = heights[0].length;
         
-        boolean[][] pacific = new boolean[m][n];
-        boolean[][] atlantic = new boolean[m][n];
+        boolean[][] pac = new boolean[m][n];
+        boolean[][] atl = new boolean[m][n];
 
         // DFS from Pacific border -->> top row - left column
-        for (int i = 0; i < m; i++) dfs(heights, i, 0, pacific, heights[i][0]);
-        for (int j = 0; j < n; j++) dfs(heights, 0, j, pacific, heights[0][j]);
+        for (int i = 0; i < m; i++) dfs(heights, i, 0, pac, heights[i][0]);
+        for (int j = 0; j < n; j++) dfs(heights, 0, j, pac, heights[0][j]);
 
         // DFS from Atlantic border -->> bottom row - right column
-        for (int i = 0; i < m; i++) dfs(heights, i, n-1, atlantic, heights[i][n-1]);
-        for (int j = 0; j < n; j++) dfs(heights, m-1, j, atlantic, heights[m-1][j]);
+        for (int i = 0; i < m; i++) dfs(heights, i, n-1, atl, heights[i][n-1]);
+        for (int j = 0; j < n; j++) dfs(heights, m-1, j, atl, heights[m-1][j]);
 
         // intersection of Pacific and Atlantic
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (pacific[i][j] && atlantic[i][j]) {
-                    result.add(Arrays.asList(i, j));
+                if (pac[i][j] && atl[i][j]) {
+                    List<Integer> l = new ArrayList<>();
+                    l.add(i) ; l.add(j);
+                    ans.add(l);
                 }
             }
         }
-        return result;
+        return ans;
     }  
 }
