@@ -6,12 +6,12 @@ class Solution {
         vis[i][j] = true;
         long sum = 0;
         sum += grid[i][j];
-        long down = dfs(i+1,j,vis,grid);
-        long up = dfs(i-1,j,vis,grid);
-        long right = dfs(i,j+1,vis,grid);
-        long left = dfs(i,j-1,vis,grid);
+        sum += dfs(i+1,j,vis,grid);
+        sum += dfs(i-1,j,vis,grid);
+        sum += dfs(i,j+1,vis,grid);
+        sum += dfs(i,j-1,vis,grid);
 
-        return sum + left + right + up + down;
+        return sum;
     }
     public int countIslands(int[][] grid, int k) {
         int n = grid.length , m = grid[0].length;
