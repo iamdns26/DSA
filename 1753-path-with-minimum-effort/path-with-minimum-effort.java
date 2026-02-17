@@ -24,7 +24,7 @@ class Solution {
             Triplet t = pq.remove();
             int r = t.row, c = t.col , eff = t.effort;
 
-            if(t.row==n-1 && t.col==m-1) return t.effort;
+            if(t.row==n-1 && t.col==m-1) return t.effort; // equal the simple return the effort
 
             if(eff > effort[r][c]) continue;
             for(int[] d : dir){
