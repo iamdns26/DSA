@@ -51,8 +51,7 @@ class Solution {
                     count[neigh.node] = count[node];
                 }
                 else if(newDist == dist[neigh.node]){
-                    count[neigh.node] = 
-                        (count[neigh.node] + count[node]) % MOD;
+                    count[neigh.node] = (count[neigh.node] + count[node]) % MOD;
                 }
             }
         }
