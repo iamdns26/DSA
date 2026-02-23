@@ -25,10 +25,10 @@ class Solution {
                 if(nr < 0 || nc < 0 || nr >= n || nc >= m) continue;
 
                 int cost = grid[nr][nc];
+                int newCost = dist[r][c] + cost;
 
-                if(dist[r][c] + cost < dist[nr][nc]){
-                    dist[nr][nc] = dist[r][c] + cost;
-
+                if(newCost < dist[nr][nc]){
+                    dist[nr][nc] = newCost;
                     if(cost == 0){
                         dq.addFirst(new int[]{nr, nc}); // priority
                     } else {
