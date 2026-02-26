@@ -1,12 +1,19 @@
 
 class Solution {
-    public int helper(TreeNode root){
-        if(root == null) return 0;
-        int left = helper(root.left);
-        int right = helper(root.right);
-        return 1 + Math.max(left,right);
-    }
     public int maxDepth(TreeNode root) {
-        return helper(root);
+        if(root==null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int count=0;
+        while(q.size()>0){
+            int size = q.size();
+            for(int i = 0 ; i < size ; i++){
+                TreeNode node = q.remove();
+                if(node.left != null) q.add(node.left);
+                if(node.right != null) q.add(node.right);
+            }
+            count++;
+        }
+        return count;
     }
 }
