@@ -1,17 +1,18 @@
 class Solution {
       int helper(int[] arr, int idx,int[] dp){
-        if (idx >= arr.length) return 0;
+        if (idx < 0) return 0;
         if(dp[idx] != -1) return dp[idx];
         
         int cost = arr[idx];
-        int v1 = helper(arr,idx+1,dp);
-        int v2 = helper(arr,idx+2,dp);
+        int v1 = helper(arr,idx-1,dp);
+        int v2 = helper(arr,idx-2,dp);
         
         return dp[idx] = cost + Math.min(v1,v2);
     }
     public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
         int[] dp = new int[cost.length];
         Arrays.fill(dp,-1);
-        return Math.min(helper(cost,0,dp),helper(cost,1,dp));
+        return Math.min(helper(cost,n-1,dp),helper(cost,n-2,dp));
     }
 }
