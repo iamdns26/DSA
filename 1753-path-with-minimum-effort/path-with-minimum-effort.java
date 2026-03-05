@@ -26,7 +26,8 @@ class Solution {
 
             if(t.row==n-1 && t.col==m-1) return t.effort; // equal the simple return the effort
 
-            if(eff > effort[r][c]) continue;
+            if(eff < effort[r][c]) continue;
+
             for(int[] d : dir){
                 int nr = r+d[0] , nc = c+d[1];
                 if(nr>=0 && nc>=0 && nr<n && nc<m){
