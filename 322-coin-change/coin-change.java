@@ -1,21 +1,21 @@
 class Solution {
-    public long helper(int idx , int[]coins , int amount ,long [][] dp){
-        if(idx<0){
+    public long coinChangeHelper(int idx, int amount, int[] coins,long[][] dp) {
+        if(idx >= coins.length){
             if(amount==0) return 0;
             return Integer.MAX_VALUE;
         }
         if(dp[idx][amount] != -1) return dp[idx][amount];
-        long skip = helper(idx-1,coins,amount,dp);
+        
+        long skip = coinChangeHelper(idx+1,amount,coins,dp);
         if(amount - coins[idx] < 0) return dp[idx][amount] = skip;
-        long pick = 1 + helper(idx,coins,amount-coins[idx],dp);
-        return dp[idx][amount] = Math.min(skip,pick);
+        long take = 1 + coinChangeHelper(idx,amount-coins[idx],coins,dp);
+
+        return  dp[idx][amount] = Math.min(take,skip);
     }
     public int coinChange(int[] coins, int amount) {
-        long [][] dp = new long[coins.length][amount+1]; 
-        for(long[] row : dp) Arrays.fill(row,-1);   
-
-        int ans =  (int)helper(coins.length-1,coins,amount,dp);
-        if(ans==Integer.MAX_VALUE) return -1;
-        return ans;
+        long[][] dp = new long[coins.length+1][amount+1];
+        for(long[] d : dp) Arrays.fill(d,-1);
+        int ans = (int)coinChangeHelper(0,amount,coins,dp);
+        return (ans == Integer.MAX_VALUE) ? -1 : ans;
     }
 }
