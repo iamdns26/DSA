@@ -1,15 +1,23 @@
+import java.util.HashMap;
+
 class Solution {
     public int majorityElement(int[] nums) {
-        int can = 0;
-        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = nums.length;
 
-        for(int i = 0 ; i < nums.length ; i++){
-            if(count == 0){
-                can = nums[i];
-            }
-            if(can == nums[i]) count++;
-            else count--;
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        return can;
+        int maxFreq = 0;
+        int maxCan = Integer.MIN_VALUE;
+
+        for(int key : map.keySet()){
+            int freq = map.get(key);
+            if(freq > maxFreq){
+                maxFreq = freq;
+                maxCan = key;
+            }
+         }
+        return maxCan; 
     }
 }
