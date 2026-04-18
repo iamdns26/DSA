@@ -7,8 +7,8 @@ class Solution {
 
             jump = Math.max(jump , i + nums[i]);
 
-            if(jump >= n-1) return true;
+            //if(jump >= n-1) return true; // if attach this one then last return anythings otherwiase retutn true only
         }
-        return false;
+        return true; // or false
     }
 }
