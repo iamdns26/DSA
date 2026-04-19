@@ -1,40 +1,44 @@
 class Solution {
     class Pair{
-        String str;
-        int val;
-        Pair(String str, int val){
-            this.str = str;
-            this.val = val;
+        String s;
+        int count;
+        Pair(String s, int count){
+            this.s = s;
+            this.count = count;
         }
-
     }
-    public int ladderLength(String st, String en, List<String> arr) {
-        HashSet<String> set = new HashSet<>();
-        for(int i = 0 ; i < arr.size() ; i++) set.add(arr.get(i));
+    public int ladderLength(String be, String en, List<String> wordList) {
+        Set<String> set = new HashSet<>();
+        for(int i = 0 ; i < wordList.size() ; i++) set.add(wordList.get(i));
         if(!set.contains(en)) return 0;
 
-        Queue<Pair> q = new ArrayDeque<>();
-        q.add(new Pair(st,1));
-        while(q.size()>0){
-            Pair p = q.remove();
-            String str = p.str;
-            int count = p.val;
-            char[] word = str.toCharArray();
-            if(str.equals(en)) return count; // check if end equal
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(be,1));
 
-            for(int i = 0 ; i < str.length() ; i++){
-                char origi = word[i];
+        while(q.size() > 0){
+            Pair p = q.remove();
+            int count = p.count;
+            String s = p.s;
+
+            // check this is equat to end
+            if(s.equals(en)) return count;
+
+            char[] word = s.toCharArray();
+
+            for(int i = 0 ; i < word.length ; i++){
+                char orig = word[i];
                 for(char ch = 'a' ; ch <= 'z' ; ch++){
                     word[i] = ch;
-                    String newWord = new String(word);
-                    if(set.contains(newWord)){
-                        q.add(new Pair(newWord, count + 1));
-                        set.remove(newWord);
+                    String temp = new String(word);
+                    if(set.contains(temp)){
+                        q.add(new Pair(temp,count+1));
+                        set.remove(temp);
                     }
                 }
-                word[i] = origi;
+                word[i] = orig;
             }
         }
         return 0;
+
     }
 }
