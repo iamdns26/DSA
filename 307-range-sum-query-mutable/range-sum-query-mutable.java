@@ -33,6 +33,7 @@ class NumArray {
 
     public int sumRangeHelper(int st, int en, int i, int l, int r) {
         if(en < l || st > r) return 0;
+        
         if(st <= l && r <= en) return seg[i];
 
         int mid = l + (r - l)/2;
