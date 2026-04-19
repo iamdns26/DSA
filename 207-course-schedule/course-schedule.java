@@ -1,17 +1,18 @@
 class Solution {
-    boolean ans;
-    public void dfs(int src, boolean[] vis, boolean[] path,List<List<Integer>> adj){
+    public boolean dfs(int src, boolean[] vis, boolean[] path,List<List<Integer>> adj){
         vis[src] = true;
         path[src] = true;
 
         for(int neigh : adj.get(src)){
-            if(path[neigh]) ans = true;
+            if(path[neigh]) return true;
 
             if(!vis[neigh]){
-                dfs(neigh,vis,path,adj);
+                if(dfs(neigh,vis,path,adj)) return true;
             }
         }
         path[src] = false;
+
+        return false;
     }
     public boolean canFinish(int course, int[][] pre) {
         List<List<Integer>> adj = new ArrayList<>();
@@ -26,10 +27,9 @@ class Solution {
 
         boolean[] vis = new boolean[course];
         boolean[] path = new boolean[course];
-        ans = false;
         for(int i = 0 ; i < course ; i++){
-            if(ans) return false;
-            dfs(i,vis,path,adj);
+            
+            if(dfs(i,vis,path,adj)) return false;
         }
         
         return true;
