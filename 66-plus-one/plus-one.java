@@ -6,8 +6,8 @@ class Solution {
                 arr[i]++;
                 //arr[i]+=1;
                 return arr;
-           }
-           arr[i] = 0 ;
+            }
+            else arr[i] = 0 ;
         }
         arr = new int [n+1];
         arr[0] = 1 ;
