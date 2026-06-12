@@ -1,56 +1,107 @@
+class LCA {
+
+    private int n;
+    private int m;
+    private int[] d;
+    private List<Integer>[] e;
+    private int[][] f;
+
+    public LCA(int[][] edges, int root) {
+        n = edges.length + 1;
+        m = (int) (Math.log(n) / Math.log(2)) + 1;
+        e = new ArrayList[n + 1];
+        d = new int[n + 1];
+        f = new int[n + 1][m];
+
+        for (int i = 0; i <= n; i++) {
+            e[i] = new ArrayList<>();
+        }
+
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            e[u].add(v);
+            e[v].add(u);
+        }
+
+        dfs(root, 0);
+
+        for (int i = 1; i < m; i++) {
+            for (int x = 1; x <= n; x++) {
+                f[x][i] = f[f[x][i - 1]][i - 1];
+            }
+        }
+    }
+
+    private void dfs(int x, int fa) {
+        f[x][0] = fa;
+        for (int y : e[x]) {
+            if (y == fa) {
+                continue;
+            }
+            d[y] = d[x] + 1;
+            dfs(y, x);
+        }
+    }
+
+    public int lca(int x, int y) {
+        if (d[x] > d[y]) {
+            int temp = x;
+            x = y;
+            y = temp;
+        }
+
+        for (int i = m - 1; i >= 0; i--) {
+            if (d[x] <= d[f[y][i]]) {
+                y = f[y][i];
+            }
+        }
+
+        if (x == y) {
+            return x;
+        }
+
+        for (int i = m - 1; i >= 0; i--) {
+            if (f[y][i] != f[x][i]) {
+                x = f[x][i];
+                y = f[y][i];
+            }
+        }
+
+        return f[x][0];
+    }
+
+    public int dis(int x, int y) {
+        return d[x] + d[y] - d[lca(x, y)] * 2;
+    }
+}
+
 class Solution {
-    static final int MOD = 1_000_000_007, LOG = 17;
-    int[][] up;
-    int[] dep;
-    List<Integer>[] g;
 
-    void dfs(int u, int p) {
-        up[0][u] = p;
-        for (int v : g[u])
-            if (v != p) { dep[v] = dep[u] + 1; dfs(v, u); }
-    }
+    private static final int MOD = 1000000007;
+    private static final int N = 100010;
+    private static int[] p2 = new int[N];
 
-    int lca(int a, int b) {
-        if (dep[a] < dep[b]) { int t = a; a = b; b = t; }
-        for (int k = LOG-1; k >= 0; k--)
-            if (up[k][a] != -1 && dep[up[k][a]] >= dep[b]) a = up[k][a];
-        if (a == b) return a;
-        for (int k = LOG-1; k >= 0; k--)
-            if (up[k][a] != up[k][b]) { a = up[k][a]; b = up[k][b]; }
-        return up[0][a];
-    }
-
-    long modpow(long a, long b) {
-        long r = 1;
-        while (b > 0) {
-            if ((b & 1) == 1) r = r * a % MOD;
-            a = a * a % MOD; b >>= 1;
+    static {
+        p2[0] = 1;
+        for (int i = 1; i < N; i++) {
+            p2[i] = (int) (((long) p2[i - 1] * 2) % MOD);
         }
-        return r;
     }
 
-    @SuppressWarnings("unchecked")
-    public int[] assignEdgeWeights(int[][] edges, int[][] q) {
-        int n = edges.length + 1;
-        g = new List[n + 1];
-        for (int i = 0; i <= n; i++) g[i] = new ArrayList<>();
-        dep = new int[n + 1];
-        up = new int[LOG][n + 1];
-        for (int[] row : up) Arrays.fill(row, -1);
+    public int[] assignEdgeWeights(int[][] edges, int[][] queries) {
+        LCA lca = new LCA(edges, 1);
+        int m = queries.length;
+        int[] res = new int[m];
 
-        for (int[] e : edges) { g[e[0]].add(e[1]); g[e[1]].add(e[0]); }
-        dfs(1, -1);
-
-        for (int k = 1; k < LOG; k++)
-            for (int i = 1; i <= n; i++)
-                if (up[k-1][i] != -1) up[k][i] = up[k-1][up[k-1][i]];
-
-        int[] ans = new int[q.length];
-        for (int i = 0; i < q.length; i++) {
-            int a = lca(q[i][0], q[i][1]);
-            int d = dep[q[i][0]] + dep[q[i][1]] - 2 * dep[a];
-            ans[i] = (int)(d > 0 ? modpow(2, d - 1) : 0);
+        for (int i = 0; i < m; i++) {
+            int x = queries[i][0];
+            int y = queries[i][1];
+            if (x != y) {
+                res[i] = p2[lca.dis(x, y) - 1];
+            }
         }
-        return ans;
+
+        return res;
     }
 }
