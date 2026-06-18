@@ -16,7 +16,7 @@ class Solution {
         for(long[] row : dp) Arrays.fill(row,-1);   
 
         int ans =  (int)helper(coins.length-1,coins,amount,dp);
-        //if(ans==Integer.MAX_VALUE) return -1;
+        if(ans==Integer.MAX_VALUE) return -1;
         return ans;
     }
 }
