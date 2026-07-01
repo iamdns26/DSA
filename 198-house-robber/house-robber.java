@@ -1,18 +1,23 @@
 class Solution {
-    public int robHelper(int idx, int free, int[] nums, int[][] dp) {
-        if(idx >= nums.length) return 0;
-        if(dp[idx][free] != -1) return dp[idx][free];
-        if(free == 0) return robHelper(idx + 1, 1, nums,dp);
+    int n;
+    int[][] dp;
+    public int helper(int idx, int flag, int[] nums) {
+       if(idx >= n) return 0;
+       if(dp[idx][flag] != -1) return dp[idx][flag];
+       
+       if(flag==1){
+        int take = nums[idx] + helper(idx+1,0,nums);
+        int skip = helper(idx+1,1,nums);
+        return dp[idx][flag] = Math.max(take,skip);
+       }
+       else return dp[idx][flag] = helper(idx+1,1,nums);
 
-        int take = nums[idx] + robHelper(idx + 1, 0, nums,dp);
-        int skip = robHelper(idx + 1, 1, nums,dp);
 
-        return dp[idx][free] = Math.max(take , skip);
     }
-
     public int rob(int[] nums) {
-        int[][] dp = new int[nums.length+1][2];
-       for(int[] d : dp) Arrays.fill(d,-1);
-        return robHelper(0,1,nums,dp);
+        n = nums.length;
+        dp = new int[n][2];
+        for(int[] d : dp) Arrays.fill(d,-1);
+        return helper(0,1,nums);
     }
 }
