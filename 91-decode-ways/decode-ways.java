@@ -3,6 +3,7 @@ class Solution {
     public int helper(int idx, String s) {
 
         if (idx == s.length()) return 1;
+        if (idx > s.length()) return 0;
         if (s.charAt(idx) == '0') return 0;
         if(dp[idx] != -1) return dp[idx];
 
