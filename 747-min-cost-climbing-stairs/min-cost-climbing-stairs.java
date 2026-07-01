@@ -1,16 +1,22 @@
 class Solution {
-    public int helper(int n, int[] cost, int[] dp){
-        if(n<0) return 0;
-        if(dp[n] != -1) return dp[n];
-        int v1 = helper(n-1,cost,dp);
-        int v2 = helper(n-2,cost,dp);
-        return dp[n] = cost[n] + Math.min(v1,v2);
-
+    int n;
+    int[] dp;
+    public int helper(int i, int[] cost) {
+        if(i>n) return Integer.MAX_VALUE;
+        if(i==n) return 0;
+        if(dp[i] != -1) return dp[i];
+        int v1 =  helper(i+1, cost);
+        int v2 =  helper(i+2, cost);
+        return dp[i] = cost[i] + Math.min(v1,v2);
     }
+
     public int minCostClimbingStairs(int[] cost) {
-        int n = cost.length;
-        int[] dp = new int[n];
+        n = cost.length;
+        dp = new int[n];
         Arrays.fill(dp,-1);
-        return Math.min(helper(n-1,cost,dp),helper(n-2,cost,dp));
+        
+        int v1 = helper(0,cost);
+        int v2 = helper(1,cost);
+        return Math.min(v1,v2);
     }
 }
