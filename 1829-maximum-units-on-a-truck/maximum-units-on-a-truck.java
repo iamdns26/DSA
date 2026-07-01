@@ -5,7 +5,7 @@ class Solution {
         int n = box.length;
 
         for(int i = n-1 ; i >= 0 ; i--){
-            
+            if(size==0) break;
             int noOfBox = box[i][0];
             int wetOfBox = box[i][1];
             
@@ -15,7 +15,8 @@ class Solution {
             }
             else if(size > 0){
                 ans += size * wetOfBox;
-                break;
+                //break;
+                size = 0;
             } 
             
         }
