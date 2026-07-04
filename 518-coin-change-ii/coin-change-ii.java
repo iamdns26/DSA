@@ -1,22 +1,19 @@
 class Solution {
-    public long helper(int idx , int[]coins , int amount ,long [][] dp){
-        if(idx<0){
-            if(amount==0) return 1;
-            return 0;
+    public long helper(int idx, int target, int[] coin,long[][] dp){
+        if(idx >= coin.length){
+            if(target == 0) return 1;
+            else return 0;
         }
-        if(dp[idx][amount] != -1) return dp[idx][amount];
-        long skip = helper(idx-1,coins,amount,dp);
-        if(amount - coins[idx] < 0) return dp[idx][amount] = skip;
-        long pick = helper(idx,coins,amount-coins[idx],dp);
-        return dp[idx][amount] = pick + skip;
+        if(dp[idx][target] != -1) return dp[idx][target];
+        long skip = helper(idx+1,target,coin,dp);
+        if(target-coin[idx] < 0) return dp[idx][target] = skip;
+        long take = helper(idx,target-coin[idx],coin,dp);
+
+        return dp[idx][target] = take + skip;
     }
     public int change(int amount, int[] coins) {
-        long [][] dp = new long[coins.length][amount+1];
-
-        for(long[] row : dp) Arrays.fill(row,-1);   
-
-        int ans =  (int)helper(coins.length-1,coins,amount,dp);
-        if(ans==Integer.MAX_VALUE) return -1;
-        return ans;
+        long[][] dp = new long[coins.length][amount+1];
+        for(long[] d : dp) Arrays.fill(d,-1);
+        return (int)helper(0,amount,coins,dp);
     }
 }
