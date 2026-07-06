@@ -7,11 +7,11 @@ class Solution {
         nums[1] = 1;
         int max = 1;
         int size = (n % 2 == 0) ? n / 2 : n / 2 + 1;
+
         for(int i = 1; i < size ; i++){
-            nums[2 * i] = nums[i];
-            max = Math.max(nums[i],max);
-            nums[2 * i + 1] = nums[i] + nums[i + 1];
-            max = Math.max(nums[i] + nums[i + 1],max);
+            int a = nums[2 * i] = nums[i];
+            int b = nums[2 * i + 1] = nums[i] + nums[i + 1];
+            max = Math.max(b,Math.max(a,max));
         }
         return max;
     }
