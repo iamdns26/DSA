@@ -1,20 +1,23 @@
 class Solution {
-    int[][] dp;
-    public int helper(int idx, int pre , int[] arr){
-        if(idx >= arr.length) return 0;
-        int take = -1;
-       if(dp[idx][pre+1] != -1) return dp[idx][pre+1];
-        if(pre == -1 || arr[idx] > arr[pre]){
-             take = 1 + helper(idx+1,idx,arr);
-        }
-        
-        int skip =  helper(idx+1,pre,arr);
-     
-        return dp[idx][pre+1] = Math.max(take,skip);
-    }
     public int lengthOfLIS(int[] nums) {
-        dp = new int[nums.length][nums.length+1];
-        for(int [] d : dp) Arrays.fill(d,-1);
-        return helper(0,-1,nums);
+        List<Integer> l = new ArrayList<>();
+        l.add(nums[0]);
+        for(int i = 1 ; i < nums.length ; i++){
+            int idx = l.size()-1;
+            if(nums[i] > l.get(idx)){
+                l.add(nums[i]);
+            }
+            else{
+                int lo = 0 , hi = l.size()-1;
+                 while(lo < hi){
+                    int mid = lo + (hi - lo) / 2;
+                    if(l.get(mid) < nums[i]) lo = mid + 1;
+                    else hi = mid;
+                }
+                l.set(lo,nums[i]);
+
+            }
+        }
+        return l.size();
     }
 }
