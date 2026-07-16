@@ -3,10 +3,7 @@ class Solution {
         List<int[]> ans = new ArrayList<>();
         Arrays.sort(arr ,(a,b) -> Integer.compare(a[0],b[0]));
 
-        for(int i = 0 ; i < arr.length ; i++){
-            int x1 = arr[i][0] , x2 = arr[i][1];
-            System.out.println(x1 +" "+ x2);
-        }
+    
         int start = arr[0][0] , last = arr[0][1];
         int[] a = {start,last};
 
