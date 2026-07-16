@@ -10,7 +10,7 @@ class Solution {
             int x1 = arr[i][0] , x2 = arr[i][1] ;
             if(x1 < last){
                 count++;
-                last = Math.min(x2,last);
+                last = Math.min(last,x2);
             }
             else last = x2;
         }
