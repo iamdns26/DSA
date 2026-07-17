@@ -1,28 +1,20 @@
 class Solution {
-    Boolean[][] dp;
-    public boolean helper(int idx, int res, int tar,int[] arr){
-        if(idx==arr.length){
-            if(res==tar) return true;
-            else return false;
+    public boolean subsetSum(int n, int target, int[] arr, Boolean[][] dp){
+        if(target==0) return true;
+        if(n<=0) return false;
+        if(dp[n][target] != null) return dp[n][target];
+        if(arr[n-1] <= target){
+            return dp[n][target] = subsetSum(n-1,target-arr[n-1],arr,dp) || subsetSum(n-1,target,arr,dp) ;
         }
-        if(dp[idx][res] != null) return dp[idx][res];
-        if(arr[idx] + res <= tar){
-            boolean take = helper(idx+1, res+arr[idx] , tar, arr);
-            boolean skip = helper(idx+1, res , tar, arr);
-
-            return dp[idx][res] = take || skip;
-        }
-        return dp[idx][res] = helper(idx+1, res , tar, arr);
+        else return dp[n][target] = subsetSum(n-1,target,arr,dp);
     }
     public boolean canPartition(int[] nums) {
-        
+        int n = nums.length;
         int sum = 0;
-        for(int ele : nums) sum += ele;
-
+        for(int ele : nums) sum+=ele;
         if(sum%2 != 0) return false;
-        dp = new Boolean[nums.length][sum/2 +1];
+        Boolean[][] dp = new Boolean[n+1][sum/2+1];
 
-        return helper(0,0,sum/2,nums);
-
+        return subsetSum(n,sum/2,nums,dp);
     }
 }
