@@ -9,13 +9,12 @@ class Solution {
         for(int i = 0; i < n - 1; i++){
 
             farthest = Math.max(farthest, i + nums[i]);
-
             if(i == currentEnd){
                 jumps++;
                 currentEnd = farthest;
             }
         }
 
-    return jumps;
+        return jumps;
     }
 }
